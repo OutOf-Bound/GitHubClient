@@ -10,6 +10,7 @@ import net.smartgekko.githubclient.ui.UsersView
 class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router) : MvpPresenter<UsersView>() {
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
+
         override var itemClickListener: ((UserItemView) -> Unit)? = null
 
         override fun getCount() = users.size
