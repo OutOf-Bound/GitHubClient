@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient
+package net.smartgekko.githubclient.ui
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy

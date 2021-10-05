@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient
+package net.smartgekko.githubclient.ui
 
 import com.github.terrakok.cicerone.Screen
 

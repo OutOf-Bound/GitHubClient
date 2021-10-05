@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient
+package net.smartgekko.githubclient.repo
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

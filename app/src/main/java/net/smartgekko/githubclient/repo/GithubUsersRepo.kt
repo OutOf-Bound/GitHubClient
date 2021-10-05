@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient
+package net.smartgekko.githubclient.repo
 
 class GithubUsersRepo {
     private val repositories = listOf(
