@@ -4,10 +4,13 @@ import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import net.smartgekko.githubclient.repo.GithubUser
 import net.smartgekko.githubclient.repo.GithubUsersRepo
+import net.smartgekko.githubclient.ui.AndroidScreens
+import net.smartgekko.githubclient.ui.IScreens
 import net.smartgekko.githubclient.ui.UserItemView
 import net.smartgekko.githubclient.ui.UsersView
 
-class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router) : MvpPresenter<UsersView>() {
+class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router, val screens: IScreens) : MvpPresenter<UsersView>() {
+
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
 
@@ -29,7 +32,8 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router) : MvpPr
         loadData()
 
         usersListPresenter.itemClickListener = { itemView ->
-            //TODO: переход на экран пользователя c помощью router.navigateTo
+            //TODO: переход на экран пользователя c помощью router.
+            router.navigateTo(screens.user(usersListPresenter.users[itemView.pos]))
         }
     }
 

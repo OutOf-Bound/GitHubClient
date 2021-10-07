@@ -1,6 +1,7 @@
 package net.smartgekko.githubclient.ui
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -34,9 +35,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         App.instance.navigatorHolder.removeNavigator()
     }
 
+
+
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
-            if(it is BackButtonListener && it.backPressed()){
+            if (it is BackButtonListener && it.backPressed()) {
                 return
             }
         }

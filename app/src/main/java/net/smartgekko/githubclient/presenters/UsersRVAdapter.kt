@@ -22,7 +22,7 @@ class UsersRVAdapter(val presenter: IUserListPresenter) : RecyclerView.Adapter<U
         override var pos = -1
 
         override fun setLogin(text: String) = with(vb) {
-            tvLogin.text = text
+            userListNameTV.text = text
         }
     }
 }
