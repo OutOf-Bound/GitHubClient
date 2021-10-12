@@ -3,6 +3,7 @@ package net.smartgekko.githubclient.repo
 import io.reactivex.subjects.BehaviorSubject
 
 class LoginProducer {
+    private val TIMEOUT = 1500L
     private val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
     private var generatorEnabled: Boolean = true;
     private var randomUserLogin: String = generateNewLogin()
@@ -21,7 +22,7 @@ class LoginProducer {
     private fun turnOnLoginGenerator() {
         Thread {
             while (generatorEnabled) {
-                Thread.sleep(3000)
+                Thread.sleep(TIMEOUT)
                 randomUserLogin = generateNewLogin()
                 loginChanged()
             }
