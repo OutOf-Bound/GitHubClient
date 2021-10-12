@@ -10,7 +10,7 @@ import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.databinding.FragmentUsersBinding
 import net.smartgekko.githubclient.presenters.UsersPresenter
 import net.smartgekko.githubclient.presenters.UsersRVAdapter
-import net.smartgekko.githubclient.repo.GithubUsersRepo
+import net.smartgekko.githubclient.repo.GithubUsersRepoImpl
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     companion object {
@@ -19,14 +19,15 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            GithubUsersRepo(),
+            GithubUsersRepoImpl(),
             App.instance.router,
             AndroidScreens()
         )
     }
     var adapter: UsersRVAdapter? = null
 
-    private var vb: FragmentUsersBinding? = null
+    private var _vb: FragmentUsersBinding? = null
+    private val vb get() = _vb!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,18 +35,18 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         savedInstanceState: Bundle?
     ) =
         FragmentUsersBinding.inflate(inflater, container, false).also {
-            vb = it
+            _vb = it
         }.root
 
     override fun onDestroyView() {
         super.onDestroyView()
-        vb = null
+        _vb = null
     }
 
     override fun init() {
-        vb?.rvUsers?.layoutManager = LinearLayoutManager(context)
+        vb.rvUsers.layoutManager = LinearLayoutManager(context)
         adapter = UsersRVAdapter(presenter.usersListPresenter)
-        vb?.rvUsers?.adapter = adapter
+        vb.rvUsers.adapter = adapter
     }
 
     override fun updateList() {

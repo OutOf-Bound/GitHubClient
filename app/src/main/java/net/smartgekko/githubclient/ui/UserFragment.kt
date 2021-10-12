@@ -23,7 +23,8 @@ class UserFragment(val user: GithubUser) : MvpAppCompatFragment(), BackButtonLis
             AndroidScreens()
         )
     }
-    private var vb: FragmentUserBinding? = null
+    private var _vb: FragmentUserBinding? = null
+    private val vb get() = _vb!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,12 +32,12 @@ class UserFragment(val user: GithubUser) : MvpAppCompatFragment(), BackButtonLis
         savedInstanceState: Bundle?
     ) =
         FragmentUserBinding.inflate(inflater, container, false).also {
-            vb = it
+            _vb = it
         }.root
 
     override fun onDestroyView() {
         super.onDestroyView()
-        vb = null
+        _vb = null
     }
 
     override fun init() {
