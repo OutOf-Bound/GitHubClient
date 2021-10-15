@@ -1,16 +1,8 @@
 package net.smartgekko.githubclient.repo
 
-class GithubUsersRepo {
-    private val repositories = listOf(
-        GithubUser("login1"),
-        GithubUser("login2"),
-        GithubUser("login3"),
-        GithubUser("login4"),
-        GithubUser("login5")
-    )
+import io.reactivex.Observable
 
-    fun getUsers() : List<GithubUser> {
-        return repositories
-    }
+interface GithubUsersRepo {
+    fun add(user: GithubUser)
+    val users: Observable<ArrayList<GithubUser>>
 }
-

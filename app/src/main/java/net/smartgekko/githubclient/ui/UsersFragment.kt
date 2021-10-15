@@ -6,36 +6,47 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import net.smartgekko.githubclient.*
+import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.databinding.FragmentUsersBinding
 import net.smartgekko.githubclient.presenters.UsersPresenter
 import net.smartgekko.githubclient.presenters.UsersRVAdapter
-import net.smartgekko.githubclient.repo.GithubUsersRepo
+import net.smartgekko.githubclient.repo.GithubUsersRepoImpl
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     companion object {
         fun newInstance() = UsersFragment()
     }
 
-    val presenter: UsersPresenter by moxyPresenter { UsersPresenter(GithubUsersRepo(), App.instance.router) }
+    val presenter: UsersPresenter by moxyPresenter {
+        UsersPresenter(
+            GithubUsersRepoImpl(),
+            App.instance.router,
+            AndroidScreens()
+        )
+    }
     var adapter: UsersRVAdapter? = null
 
-    private var vb: FragmentUsersBinding? = null
+    private var _vb: FragmentUsersBinding? = null
+    private val vb get() = _vb!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) =
         FragmentUsersBinding.inflate(inflater, container, false).also {
-            vb = it
+            _vb = it
         }.root
 
     override fun onDestroyView() {
         super.onDestroyView()
-        vb = null
+        _vb = null
     }
 
     override fun init() {
-        vb?.rvUsers?.layoutManager = LinearLayoutManager(context)
+        vb.rvUsers.layoutManager = LinearLayoutManager(context)
         adapter = UsersRVAdapter(presenter.usersListPresenter)
-        vb?.rvUsers?.adapter = adapter
+        vb.rvUsers.adapter = adapter
     }
 
     override fun updateList() {
