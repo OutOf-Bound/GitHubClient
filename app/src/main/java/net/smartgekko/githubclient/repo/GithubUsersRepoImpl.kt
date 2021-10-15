@@ -1,37 +1,41 @@
 package net.smartgekko.githubclient.repo
 
-
-import android.widget.Toast
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import net.smartgekko.githubclient.App
 
 class GithubUsersRepoImpl : GithubUsersRepo {
-    private val repositories = arrayListOf<GithubUser>(
-        GithubUser("login1"),
-        GithubUser("login2"),
-    )
+    private val repositories = arrayListOf<GithubUser>()
     private val behaviorSubject = BehaviorSubject.createDefault<ArrayList<GithubUser>>(repositories)
     private val loginProducer = LoginProducer()
 
     init {
-        loginProducer.getLogin().subscribeBy(
+        loginProducer.getLogin()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
             onNext = {
                 repositories.add(GithubUser(it))
                 behaviorSubject.onNext(repositories)
             },
+            onComplete = {
+                behaviorSubject.onComplete()
+                App.instance.showMessage("Users loading complete")
+            },
             onError = {
-                Toast.makeText(App.instance, "Getting new login error", Toast.LENGTH_LONG).show()
-            }
+                App.instance.showMessage("Getting new login error")
+            },
+
         )
     }
 
-    override fun add(user: GithubUser) {
-        repositories.add(user)
-    }
+   // override fun addUsser(user: GithubUser) {
+   //     repositories.add(user)
+   // }
 
-    override val users: Observable<ArrayList<GithubUser>>
-        get() = behaviorSubject
+    override fun getUsersList(): Observable<ArrayList<GithubUser>> {
+        return behaviorSubject
+    }
 }
 

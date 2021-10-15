@@ -1,6 +1,7 @@
 package net.smartgekko.githubclient
 
 import android.app.Application
+import android.widget.Toast
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 
@@ -16,6 +17,10 @@ class App : Application() {
 
     val navigatorHolder get() = cicerone.getNavigatorHolder()
     val router get() = cicerone.router
+
+    fun showMessage(msg:String){
+        Toast.makeText(this,msg,Toast.LENGTH_LONG).show()
+    }
 
     override fun onCreate() {
         super.onCreate()

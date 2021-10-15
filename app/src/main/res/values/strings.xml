@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">GitHubClient</string>
-    <string name="user_fragment_title">Профиль пользователя</string>
+    <string name="user_fragment_title">User profile</string>
+    <string name="in_process">In process…</string>
+    <string name="users_loading_complete">Users loading complete</string>
+    <string name="get_new_login_error">Getting new login error</string>
+    <string name="get_users_error">Getting users list error</string>
 </resources>

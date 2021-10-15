@@ -1,11 +1,13 @@
 package net.smartgekko.githubclient.presenters
 
-import android.widget.Toast
 import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
 import net.smartgekko.githubclient.App
+import net.smartgekko.githubclient.SCREEN_STATE_IDLE
+import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.repo.GithubUser
 import net.smartgekko.githubclient.repo.GithubUsersRepoImpl
 import net.smartgekko.githubclient.ui.IScreens
@@ -45,12 +47,21 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        compositeDisposable.add(usersRepo.users
+        viewState.setScreenState(SCREEN_STATE_LOADING)
+        compositeDisposable.add(usersRepo.getUsersList()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { listUsers -> userListUpdate(listUsers)},
-                { thr -> Toast.makeText(App.instance, thr.message, Toast.LENGTH_SHORT).show() }
-            )
+            .subscribeBy(
+                onNext = {
+                    userListUpdate(it)
+                },
+                onComplete = {
+                    viewState.setScreenState(SCREEN_STATE_IDLE)
+                },
+                onError = {
+                    App.instance.showMessage("Getting users list error")
+                },
+
+                )
         )
     }
 
