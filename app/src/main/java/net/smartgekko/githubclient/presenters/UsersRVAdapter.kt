@@ -1,8 +1,10 @@
 package net.smartgekko.githubclient.presenters
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import net.smartgekko.githubclient.R
 import net.smartgekko.githubclient.databinding.ItemUserBinding
 import net.smartgekko.githubclient.ui.UserItemView
 
@@ -31,6 +33,23 @@ class UsersRVAdapter(val presenter: IUserListPresenter) :
         override var pos = -1
         override fun setLogin(text: String) = with(vb) {
             userListNameTV.text = text
+        }
+
+        override fun setUserState(uState: Int) = with(vb) {
+            when (uState) {
+                0 -> {
+                  userSmileIV.setImageResource(R.drawable.smile_smile_300)
+                }
+                1 -> {
+                    userSmileIV.setImageResource(R.drawable.smile_pockerface_300)
+                }
+                2 -> {
+                    userSmileIV.setImageResource(R.drawable.smile_angry_300)
+                }
+                3 -> {
+                    userSmileIV.setImageResource(R.drawable.smile_war_300)
+                }
+            }
         }
     }
 }

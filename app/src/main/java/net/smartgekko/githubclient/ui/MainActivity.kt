@@ -4,14 +4,19 @@ import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import net.smartgekko.githubclient.ActionEvent
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.R
 import net.smartgekko.githubclient.databinding.ActivityMainBinding
 import net.smartgekko.githubclient.presenters.MainPresenter
 
+
+
+
+
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    val navigator = AppNavigator(this, R.id.container)
+    val navigator = AppNavigator(this, net.smartgekko.githubclient.R.id.container)
 
     private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
 
@@ -21,6 +26,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb?.root)
+       vb?.actSmileB?.setOnClickListener {
+           App.eventBus.post(ActionEvent())
+       }
     }
 
     override fun onResumeFragments() {
@@ -41,5 +49,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
         presenter.backClicked()
     }
+
+
 }
 

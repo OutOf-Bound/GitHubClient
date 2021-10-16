@@ -6,4 +6,6 @@
     <string name="users_loading_complete">Список пользователей загружен</string>
     <string name="get_new_login_error">Ошибка получения данных</string>
     <string name="get_users_error">Ошибка получения списка пользователей</string>
+    <string name="act_smile">Всем вакцинироваться!</string>
+
 </resources>

@@ -30,6 +30,8 @@ class UsersPresenter(
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
             view.setLogin(user.login)
+            view.setUserState(user.behavoir.userState)
+
         }
     }
 
@@ -46,30 +48,34 @@ class UsersPresenter(
         }
     }
 
+
     private fun loadData() {
         viewState.setScreenState(SCREEN_STATE_LOADING)
-        compositeDisposable.add(usersRepo.getUsersList()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onNext = {
-                    userListUpdate(it)
-                },
-                onComplete = {
-                    viewState.setScreenState(SCREEN_STATE_IDLE)
-                },
-                onError = {
-                    App.instance.showMessage("Getting users list error")
-                },
+        compositeDisposable.add(
+            usersRepo.getUsersList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                    onNext = {
+                        userListUpdate(it)
+                    },
+                    onComplete = {
+                        viewState.setScreenState(SCREEN_STATE_IDLE)
+                        App.instance.showMessage("Users loading complete")
+                    },
+                    onError = {
+                        App.instance.showMessage("Getting users list error")
+                    },
 
-                )
+                    )
         )
     }
 
-    private fun userListUpdate(usersList:ArrayList<GithubUser>) {
+    private fun userListUpdate(usersList: ArrayList<GithubUser>) {
         usersListPresenter.users.clear()
         usersListPresenter.users.addAll(usersList)
         viewState.updateList()
     }
+
 
     fun backPressed(): Boolean {
         router.exit()

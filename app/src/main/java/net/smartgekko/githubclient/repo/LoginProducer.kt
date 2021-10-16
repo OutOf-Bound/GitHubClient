@@ -4,8 +4,8 @@ import io.reactivex.subjects.BehaviorSubject
 import java.lang.Exception
 
 class LoginProducer {
-    private val TIMEOUT = 1500L
-    private val LOGINS_COUNT = 8
+    private val TIMEOUT = 1000L
+    private val LOGINS_COUNT = 5
     private var generatorEnabled: Boolean = true;
     private var randomUserLogin: String = generateNewLogin()
     private val behaviorSubject = BehaviorSubject.createDefault<String>(randomUserLogin)
