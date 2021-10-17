@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import net.smartgekko.githubclient.*
+import net.smartgekko.githubclient.ActionEvent
+import net.smartgekko.githubclient.App
+import net.smartgekko.githubclient.SCREEN_STATE_IDLE
+import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.databinding.FragmentUsersBinding
 import net.smartgekko.githubclient.presenters.UsersPresenter
 import net.smartgekko.githubclient.presenters.UsersRVAdapter
@@ -18,7 +21,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         fun newInstance() = UsersFragment()
     }
 
-    val presenter: UsersPresenter by moxyPresenter {
+    private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
             GithubUsersRepoImpl(),
             App.instance.router,
@@ -26,7 +29,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         )
     }
 
-    var adapter: UsersRVAdapter? = null
+    private var adapter: UsersRVAdapter? = null
     private var _vb: FragmentUsersBinding? = null
     private val vb get() = _vb!!
 
@@ -34,14 +37,13 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ):View? {
-       _vb = FragmentUsersBinding.inflate(inflater, container, false)
-            vb.actSmileB.setOnClickListener {
-                App.actionBus.post(ActionEvent.DoVactinate())
-            }
+    ): View {
+        _vb = FragmentUsersBinding.inflate(inflater, container, false)
+        vb.actSmileB.setOnClickListener {
+            App.actionBus.post(ActionEvent.DoVactinate())
+        }
         return vb.root
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -64,14 +66,19 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         when (state) {
             SCREEN_STATE_IDLE -> {
                 vb.usersLoadingLayout.visibility = View.GONE
-                vb.actSmileB.visibility = View.VISIBLE
+                vb.cmdPanelLayout.visibility = View.VISIBLE
             }
             SCREEN_STATE_LOADING -> {
                 vb.usersLoadingLayout.visibility = View.VISIBLE
-                vb.actSmileB.visibility = View.INVISIBLE
+                vb.cmdPanelLayout.visibility = View.GONE
             }
         }
     }
 
-
+    override fun updateAnalytics(analyticsArray: IntArray) {
+        vb.text0.text = analyticsArray[0].toString()
+        vb.text1.text = analyticsArray[1].toString()
+        vb.text2.text = analyticsArray[2].toString()
+        vb.text3.text = analyticsArray[3].toString()
+    }
 }

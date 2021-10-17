@@ -8,7 +8,7 @@ import net.smartgekko.githubclient.databinding.ItemUserBinding
 import net.smartgekko.githubclient.ui.UserItemView
 
 
-class UsersRVAdapter(val presenter: IUserListPresenter) :
+class UsersRVAdapter(private val presenter: IUserListPresenter) :
     RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -27,7 +27,7 @@ class UsersRVAdapter(val presenter: IUserListPresenter) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         presenter.bindView(holder.apply { pos = position })
 
-    inner class ViewHolder(val vb: ItemUserBinding) : RecyclerView.ViewHolder(vb.root),
+    inner class ViewHolder(private val vb: ItemUserBinding) : RecyclerView.ViewHolder(vb.root),
         UserItemView {
         override var pos = -1
         override fun setLogin(text: String) = with(vb) {
@@ -37,7 +37,7 @@ class UsersRVAdapter(val presenter: IUserListPresenter) :
         override fun setUserState(state: Int) = with(vb) {
             when (state) {
                 0 -> {
-                  userSmileIV.setImageResource(R.drawable.smile_smile_300)
+                    userSmileIV.setImageResource(R.drawable.smile_smile_300)
                 }
                 1 -> {
                     userSmileIV.setImageResource(R.drawable.smile_pockerface_300)

@@ -8,13 +8,9 @@ import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.databinding.ActivityMainBinding
 import net.smartgekko.githubclient.presenters.MainPresenter
 
-
-
-
-
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    val navigator = AppNavigator(this, net.smartgekko.githubclient.R.id.rootContainer)
+    private val navigator = AppNavigator(this, net.smartgekko.githubclient.R.id.rootContainer)
 
     private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
 
@@ -24,7 +20,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb?.root)
-
     }
 
     override fun onResumeFragments() {
@@ -45,7 +40,5 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
         presenter.backClicked()
     }
-
-
 }
 

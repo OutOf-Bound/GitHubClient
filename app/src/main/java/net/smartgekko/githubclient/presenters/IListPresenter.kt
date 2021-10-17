@@ -1,7 +1,6 @@
 package net.smartgekko.githubclient.presenters
 
 import net.smartgekko.githubclient.ui.IItemView
-import net.smartgekko.githubclient.ui.UserBehavoir
 import net.smartgekko.githubclient.ui.UserItemView
 
 interface IListPresenter<V : IItemView> {

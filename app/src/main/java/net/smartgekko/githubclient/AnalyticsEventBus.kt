@@ -2,16 +2,14 @@ package net.smartgekko.githubclient
 
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import net.smartgekko.githubclient.repo.GithubUser
 
 class AnalyticsEventBus {
-    open class Event
 
-    private val bus = PublishSubject.create<Event>()
+    private val bus = PublishSubject.create<AnalyticsEvent>()
 
-    fun post(event: Event) {
+    fun post(event: AnalyticsEvent) {
         bus.onNext(event)
     }
 
-    fun get(): Observable<Event> = bus
+    fun get(): Observable<AnalyticsEvent> = bus
 }

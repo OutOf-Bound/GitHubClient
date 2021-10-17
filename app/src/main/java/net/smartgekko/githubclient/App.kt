@@ -7,7 +7,7 @@ import com.github.terrakok.cicerone.Router
 
 class App : Application() {
     companion object {
-         lateinit var instance: App
+        lateinit var instance: App
         val actionBus = ActionEventBus()
         val analyticsBus = AnalyticsEventBus()
     }
@@ -20,8 +20,8 @@ class App : Application() {
     val navigatorHolder get() = cicerone.getNavigatorHolder()
     val router get() = cicerone.router
 
-    fun showMessage(msg:String){
-        Toast.makeText(this,msg,Toast.LENGTH_LONG).show()
+    fun showMessage(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
     override fun onCreate() {

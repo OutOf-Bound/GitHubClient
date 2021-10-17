@@ -1,14 +1,13 @@
 package net.smartgekko.githubclient.repo
 
 import io.reactivex.subjects.BehaviorSubject
-import java.lang.Exception
 
 class LoginProducer {
     private val TIMEOUT = 1000L
     private val LOGINS_COUNT = 5
-    private var generatorEnabled: Boolean = true;
+    private var generatorEnabled: Boolean = true
     private var randomUserLogin: String = generateNewLogin()
-    private val behaviorSubject = BehaviorSubject.createDefault<String>(randomUserLogin)
+    private val behaviorSubject = BehaviorSubject.createDefault(randomUserLogin)
 
     init {
         turnOnGenerator()
@@ -28,7 +27,7 @@ class LoginProducer {
                 randomUserLogin = generateNewLogin()
                 loginChanged()
                 counter++
-                if (counter == LOGINS_COUNT)  {
+                if (counter == LOGINS_COUNT) {
                     generatorEnabled = false
                     behaviorSubject.onComplete()
                 }
@@ -38,7 +37,7 @@ class LoginProducer {
 
     private fun generateNewLogin(): String {
         return "user_" + (1..3)
-            .map { i -> kotlin.random.Random.nextInt(0, 9) }
+            .map { kotlin.random.Random.nextInt(0, 9) }
             .joinToString("")
     }
 }

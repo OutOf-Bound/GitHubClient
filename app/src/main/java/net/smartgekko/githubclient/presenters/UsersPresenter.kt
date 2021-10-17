@@ -5,10 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
-import net.smartgekko.githubclient.ActionEvent
-import net.smartgekko.githubclient.App
-import net.smartgekko.githubclient.SCREEN_STATE_IDLE
-import net.smartgekko.githubclient.SCREEN_STATE_LOADING
+import net.smartgekko.githubclient.*
 import net.smartgekko.githubclient.repo.GithubUser
 import net.smartgekko.githubclient.repo.GithubUsersRepoImpl
 import net.smartgekko.githubclient.ui.IScreens
@@ -59,8 +56,25 @@ class UsersPresenter(
                 }
             }
 
+        App.analyticsBus.get()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { event ->
+                if (event is AnalyticsEvent) {
+                    showAnalytics()
+                } else {
+
+                }
+            }
+
     }
 
+    private fun showAnalytics() {
+        val tmpArray: IntArray = intArrayOf(0, 0, 0, 0)
+        for (i in 0 until usersListPresenter.users.size) {
+            tmpArray[usersListPresenter.users[i].behavoir.userState]++
+        }
+        viewState.updateAnalytics(tmpArray)
+    }
 
     private fun loadData() {
         viewState.setScreenState(SCREEN_STATE_LOADING)
@@ -73,7 +87,7 @@ class UsersPresenter(
                     },
                     onComplete = {
                         viewState.setScreenState(SCREEN_STATE_IDLE)
-                        App.instance.showMessage("Users loading complete")
+                        showAnalytics()
                     },
                     onError = {
                         App.instance.showMessage("Getting users list error")
@@ -82,8 +96,6 @@ class UsersPresenter(
                     )
         )
     }
-
-
 
 
     private fun userListUpdate(usersList: ArrayList<GithubUser>) {

@@ -6,7 +6,8 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface UsersView : MvpView {
-    fun setScreenState(state:Int)
+    fun setScreenState(state: Int)
     fun init()
     fun updateList()
+    fun updateAnalytics(analyticsArray: IntArray)
 }

@@ -10,14 +10,14 @@ import net.smartgekko.githubclient.databinding.FragmentUserBinding
 import net.smartgekko.githubclient.presenters.UserPresenter
 import net.smartgekko.githubclient.repo.GithubUser
 
-class UserFragment(val user: GithubUser) : MvpAppCompatFragment(), BackButtonListener, UserView {
+class UserFragment(private val user: GithubUser) : MvpAppCompatFragment(), BackButtonListener,
+    UserView {
 
     companion object {
         fun newInstance(user: GithubUser) = UserFragment(user)
     }
 
-
-    val presenter: UserPresenter by moxyPresenter {
+    private val presenter: UserPresenter by moxyPresenter {
         UserPresenter(
             App.instance.router,
             AndroidScreens()
@@ -41,7 +41,7 @@ class UserFragment(val user: GithubUser) : MvpAppCompatFragment(), BackButtonLis
     }
 
     override fun init() {
-        vb?.userNameTV?.text = user.login
+        vb.userNameTV.text = user.login
     }
 
     override fun backPressed() = presenter.backPressed()
