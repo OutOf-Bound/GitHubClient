@@ -8,40 +8,13 @@
     android:gravity="bottom">
 
     <FrameLayout
-        android:id="@+id/container"
+        android:id="@+id/rootContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/analytics_Tv"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_weight="1"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/act_smile_B"
-            style="@style/Widget.AppCompat.Button.Small"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:text="@string/act_smile"
-            android:textSize="11sp" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

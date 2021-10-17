@@ -1,6 +1,5 @@
 package net.smartgekko.githubclient.presenters
 
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,8 +34,8 @@ class UsersRVAdapter(val presenter: IUserListPresenter) :
             userListNameTV.text = text
         }
 
-        override fun setUserState(uState: Int) = with(vb) {
-            when (uState) {
+        override fun setUserState(state: Int) = with(vb) {
+            when (state) {
                 0 -> {
                   userSmileIV.setImageResource(R.drawable.smile_smile_300)
                 }

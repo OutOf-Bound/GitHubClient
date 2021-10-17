@@ -4,9 +4,8 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import net.smartgekko.githubclient.repo.GithubUser
 
-class EventBus {
+class ActionEventBus {
     open class Event
-
     private val bus = PublishSubject.create<Event>()
     private var user: GithubUser? = null
 

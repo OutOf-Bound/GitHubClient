@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import net.smartgekko.githubclient.App
-import net.smartgekko.githubclient.SCREEN_STATE_IDLE
-import net.smartgekko.githubclient.SCREEN_STATE_LOADING
+import net.smartgekko.githubclient.*
 import net.smartgekko.githubclient.databinding.FragmentUsersBinding
 import net.smartgekko.githubclient.presenters.UsersPresenter
 import net.smartgekko.githubclient.presenters.UsersRVAdapter
@@ -27,6 +25,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             AndroidScreens()
         )
     }
+
     var adapter: UsersRVAdapter? = null
     private var _vb: FragmentUsersBinding? = null
     private val vb get() = _vb!!
@@ -35,10 +34,14 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) =
-        FragmentUsersBinding.inflate(inflater, container, false).also {
-            _vb = it
-        }.root
+    ):View? {
+       _vb = FragmentUsersBinding.inflate(inflater, container, false)
+            vb.actSmileB.setOnClickListener {
+                App.actionBus.post(ActionEvent.DoVactinate())
+            }
+        return vb.root
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -61,9 +64,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         when (state) {
             SCREEN_STATE_IDLE -> {
                 vb.usersLoadingLayout.visibility = View.GONE
+                vb.actSmileB.visibility = View.VISIBLE
             }
             SCREEN_STATE_LOADING -> {
                 vb.usersLoadingLayout.visibility = View.VISIBLE
+                vb.actSmileB.visibility = View.INVISIBLE
             }
         }
     }

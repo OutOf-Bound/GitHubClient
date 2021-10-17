@@ -8,7 +8,8 @@ import com.github.terrakok.cicerone.Router
 class App : Application() {
     companion object {
          lateinit var instance: App
-        val eventBus = EventBus()
+        val actionBus = ActionEventBus()
+        val analyticsBus = AnalyticsEventBus()
     }
 
     //Временно до даггера положим это тут

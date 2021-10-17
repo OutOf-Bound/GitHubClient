@@ -6,6 +6,7 @@
     <string name="get_new_login_error">Getting new login error</string>
     <string name="get_users_error">Getting users list error</string>
     <string name="act_smile">Everyone get vaccinated!</string>
+    <string name="analytics">Analytics</string>
 
 
 </resources>

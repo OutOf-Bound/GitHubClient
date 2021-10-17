@@ -1,11 +1,77 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D6D6D6"
+    android:background="#A8000000"
+    android:elevation="90dp"
     android:visibility="visible"
     tools:visibility="visible">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D6D6D6"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUsers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:padding="4dp"
+            android:text="@string/analytics"
+            android:textColor="#FFFEFE"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/analytics_Tv"
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:background="#000000"
+            android:textColor="#F8F8F8"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/act_smile_B"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:text="@string/act_smile"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            tools:visibility="visible" />
+
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/users_loading_Layout"
@@ -14,7 +80,11 @@
         android:background="#A8000000"
         android:elevation="90dp"
         android:visibility="gone"
-        tools:visibility="visible">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar"
@@ -45,13 +115,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvUsers"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

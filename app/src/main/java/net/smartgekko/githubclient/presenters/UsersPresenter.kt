@@ -5,6 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
+import net.smartgekko.githubclient.ActionEvent
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
@@ -22,6 +23,7 @@ class UsersPresenter(
 
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
+
 
         override var itemClickListener: ((UserItemView) -> Unit)? = null
 
@@ -46,6 +48,17 @@ class UsersPresenter(
         usersListPresenter.itemClickListener = { itemView ->
             router.navigateTo(screens.user(usersListPresenter.users[itemView.pos]))
         }
+
+        App.actionBus.get()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { event ->
+                if (event is ActionEvent.DoVactinate) {
+                    viewState.updateList()
+                } else {
+
+                }
+            }
+
     }
 
 
@@ -69,6 +82,9 @@ class UsersPresenter(
                     )
         )
     }
+
+
+
 
     private fun userListUpdate(usersList: ArrayList<GithubUser>) {
         usersListPresenter.users.clear()
