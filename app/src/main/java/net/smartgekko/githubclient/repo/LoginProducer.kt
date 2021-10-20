@@ -4,7 +4,7 @@ import io.reactivex.subjects.BehaviorSubject
 
 class LoginProducer {
     private val TIMEOUT = 1000L
-    private val LOGINS_COUNT = 5
+    private val LOGINS_COUNT = 10
     private var generatorEnabled: Boolean = true
     private var randomUserLogin: String = generateNewLogin()
     private val behaviorSubject = BehaviorSubject.createDefault(randomUserLogin)
@@ -27,7 +27,7 @@ class LoginProducer {
                 randomUserLogin = generateNewLogin()
                 loginChanged()
                 counter++
-                if (counter == LOGINS_COUNT) {
+                if (counter == LOGINS_COUNT-1) {
                     generatorEnabled = false
                     behaviorSubject.onComplete()
                 }
