@@ -9,10 +9,6 @@ import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.databinding.FragmentUserBinding
 import net.smartgekko.githubclient.presenters.UserPresenter
 import net.smartgekko.githubclient.repo.GithubUser
-import android.R.id
-
-
-
 
 class UserFragment : MvpAppCompatFragment(), BackButtonListener,
     UserView {
@@ -20,12 +16,13 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
     companion object {
         fun newInstance(gitUser: GithubUser): UserFragment {
             val args = Bundle()
-            args.putSerializable ("gitUser",gitUser)
+            args.putSerializable("gitUser", gitUser)
             val f = UserFragment()
             f.setArguments(args)
             return f
         }
     }
+
     private val presenter: UserPresenter by moxyPresenter {
         UserPresenter(
             App.instance.router,
@@ -50,7 +47,7 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
     }
 
     override fun init() {
-        val user:GithubUser = arguments?.getSerializable("gitUser") as GithubUser
+        val user: GithubUser = arguments?.getSerializable("gitUser") as GithubUser
         vb.userNameTV.text = user.login
     }
 
