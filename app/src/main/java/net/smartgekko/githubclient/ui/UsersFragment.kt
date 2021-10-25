@@ -39,7 +39,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         savedInstanceState: Bundle?
     ): View {
         _vb = FragmentUsersBinding.inflate(inflater, container, false)
-        vb.actSmileB.setOnClickListener {
+        vb.analyticsActButton.setOnClickListener {
             App.actionBus.post(ActionEvent.DoVactinate())
         }
         return vb.root
@@ -65,20 +65,20 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun setScreenState(state: Int) {
         when (state) {
             SCREEN_STATE_IDLE -> {
-                vb.usersLoadingLayout.visibility = View.GONE
+                vb.loadingLayout.visibility = View.GONE
                 vb.cmdPanelLayout.visibility = View.VISIBLE
             }
             SCREEN_STATE_LOADING -> {
-                vb.usersLoadingLayout.visibility = View.VISIBLE
+                vb.loadingLayout.visibility = View.VISIBLE
                 vb.cmdPanelLayout.visibility = View.GONE
             }
         }
     }
 
     override fun updateAnalytics(analyticsArray: IntArray) {
-        vb.text0.text = analyticsArray[0].toString()
-        vb.text1.text = analyticsArray[1].toString()
-        vb.text2.text = analyticsArray[2].toString()
-        vb.text3.text = analyticsArray[3].toString()
+        vb.text1TV.text = analyticsArray[0].toString()
+        vb.text2TV.text = analyticsArray[1].toString()
+        vb.text3TV.text = analyticsArray[2].toString()
+        vb.text4TV.text = analyticsArray[3].toString()
     }
 }
