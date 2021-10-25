@@ -5,7 +5,8 @@ import moxy.MvpPresenter
 import net.smartgekko.githubclient.ui.IScreens
 import net.smartgekko.githubclient.ui.MainView
 
-class MainPresenter(val router: Router, val screens: IScreens) : MvpPresenter<MainView>() {
+class MainPresenter(private val router: Router, private val screens: IScreens) :
+    MvpPresenter<MainView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
