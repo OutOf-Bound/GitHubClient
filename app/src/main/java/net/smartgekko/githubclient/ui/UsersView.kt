@@ -9,5 +9,4 @@ interface UsersView : MvpView {
     fun setScreenState(state: Int)
     fun init()
     fun updateList()
-    fun updateAnalytics(analyticsArray: IntArray)
 }

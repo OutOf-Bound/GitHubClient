@@ -1,19 +1,23 @@
 package net.smartgekko.githubclient.presenters
 
 import com.github.terrakok.cicerone.Router
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
 import net.smartgekko.githubclient.*
 import net.smartgekko.githubclient.repo.GithubUser
-import net.smartgekko.githubclient.repo.GithubUsersRepoImpl
+import net.smartgekko.githubclient.repo.IGithubUsersRepo
 import net.smartgekko.githubclient.ui.IScreens
+import net.smartgekko.githubclient.ui.UserBehavoir
 import net.smartgekko.githubclient.ui.UserItemView
 import net.smartgekko.githubclient.ui.UsersView
+import kotlin.random.Random
 
 class UsersPresenter(
-    private val usersRepo: GithubUsersRepoImpl,
+    val uiScheduler: Scheduler,
+    private val usersRepo: IGithubUsersRepo,
     private val router: Router,
     private val screens: IScreens
 ) : MvpPresenter<UsersView>() {
@@ -29,8 +33,6 @@ class UsersPresenter(
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
             view.setLogin(user.login)
-            view.setUserState(user.behavoir.userState)
-
         }
     }
 
@@ -45,55 +47,27 @@ class UsersPresenter(
         usersListPresenter.itemClickListener = { itemView ->
             router.navigateTo(screens.user(usersListPresenter.users[itemView.pos]))
         }
-
-        App.actionBus.get()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { event ->
-                if (event is ActionEvent.DoVactinate) {
-                    viewState.updateList()
-                } else {
-
-                }
-            }
-
-        App.analyticsBus.get()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { event ->
-                if (event is AnalyticsEvent) {
-                    showAnalytics()
-                } else {
-
-                }
-            }
-
-    }
-
-    private fun showAnalytics() {
-        val tmpArray: IntArray = intArrayOf(0, 0, 0, 0)
-        for (i in 0 until usersListPresenter.users.size) {
-            tmpArray[usersListPresenter.users[i].behavoir.userState]++
-        }
-        viewState.updateAnalytics(tmpArray)
     }
 
     private fun loadData() {
         viewState.setScreenState(SCREEN_STATE_LOADING)
+
         compositeDisposable.add(
-            usersRepo.getUsersList()
-                .observeOn(AndroidSchedulers.mainThread())
+            usersRepo.getUsers()
+                .observeOn(uiScheduler)
                 .subscribeBy(
                     onNext = {
-                        userListUpdate(it)
+                        usersListPresenter.users.clear()
+                        usersListPresenter.users.addAll(it)
+                        viewState.updateList()
                     },
                     onComplete = {
                         viewState.setScreenState(SCREEN_STATE_IDLE)
-                        showAnalytics()
                     },
                     onError = {
-                        App.instance.showMessage("Getting users list error")
-                    },
+                        println("Error: ${it.message}")
+                    })
 
-                    )
         )
     }
 

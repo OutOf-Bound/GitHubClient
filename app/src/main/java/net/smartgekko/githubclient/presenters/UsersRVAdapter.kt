@@ -34,22 +34,7 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
             userListNameTV.text = text
         }
 
-        override fun setUserState(state: Int) = with(vb) {
-            when (state) {
-                0 -> {
-                    userSmileIV.setImageResource(R.drawable.smile_smile_300)
-                }
-                1 -> {
-                    userSmileIV.setImageResource(R.drawable.smile_pockerface_300)
-                }
-                2 -> {
-                    userSmileIV.setImageResource(R.drawable.smile_angry_300)
-                }
-                3 -> {
-                    userSmileIV.setImageResource(R.drawable.smile_war_300)
-                }
-            }
-        }
+
     }
 }
 
