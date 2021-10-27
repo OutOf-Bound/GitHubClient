@@ -5,7 +5,8 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
-import net.smartgekko.githubclient.*
+import net.smartgekko.githubclient.SCREEN_STATE_IDLE
+import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.repo.GithubUser
 import net.smartgekko.githubclient.repo.IGithubUsersRepo
 import net.smartgekko.githubclient.ui.IScreens
@@ -13,7 +14,7 @@ import net.smartgekko.githubclient.ui.UserItemView
 import net.smartgekko.githubclient.ui.UsersView
 
 class UsersPresenter(
-    val uiScheduler: Scheduler,
+    private val uiScheduler: Scheduler,
     private val usersRepo: IGithubUsersRepo,
     private val router: Router,
     private val screens: IScreens
@@ -26,7 +27,7 @@ class UsersPresenter(
 
         override fun getCount() = users.size
 
-        override fun bindView(view: UserItemView) {
+        override fun bindView(view: UserItemView, lPos: Int) {
             val user = users[view.pos]
             view.setLogin(user.login)
         }
@@ -66,14 +67,6 @@ class UsersPresenter(
 
         )
     }
-
-
-    private fun userListUpdate(usersList: ArrayList<GithubUser>) {
-        usersListPresenter.users.clear()
-        usersListPresenter.users.addAll(usersList)
-        viewState.updateList()
-    }
-
 
     fun backPressed(): Boolean {
         router.exit()

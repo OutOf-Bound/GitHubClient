@@ -6,7 +6,7 @@ import net.smartgekko.githubclient.ui.UserItemView
 
 interface IListPresenter<V : IItemView> {
     var itemClickListener: ((V) -> Unit)?
-    fun bindView(view: V)
+    fun bindView(view: V, lPos: Int)
     fun getCount(): Int
 }
 

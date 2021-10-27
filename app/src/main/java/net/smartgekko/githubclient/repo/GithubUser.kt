@@ -6,7 +6,7 @@ import java.io.Serializable
 
 class GithubUser(
     @Expose val id: String? = null,
-    @Expose  val login: String,
+    @Expose val login: String,
     @Expose val avatarUrl: String? = null,
     @Expose val reposUrl: String? = null
 ) : Serializable

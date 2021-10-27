@@ -1,13 +1,18 @@
 package net.smartgekko.githubclient.ui
 
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.TransitionManager
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import net.smartgekko.githubclient.ApiHolder
 import net.smartgekko.githubclient.App
+import net.smartgekko.githubclient.SCREEN_STATE_IDLE
+import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.databinding.FragmentUserBinding
 import net.smartgekko.githubclient.presenters.RepoRVAdapter
 import net.smartgekko.githubclient.presenters.UserPresenter
@@ -43,7 +48,8 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?) =
+        savedInstanceState: Bundle?
+    ) =
         FragmentUserBinding.inflate(inflater, container, false).also {
             _vb = it
         }.root
@@ -51,6 +57,20 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
     override fun onDestroyView() {
         super.onDestroyView()
         _vb = null
+    }
+
+    override fun setScreenState(state: Int) {
+        val fade = Fade()
+        fade.duration = 200
+        when (state) {
+            SCREEN_STATE_IDLE -> {
+                TransitionManager.beginDelayedTransition(vb.loadingLayout, fade)
+                vb.loadingLayout.visibility = View.GONE
+            }
+            SCREEN_STATE_LOADING -> {
+                vb.loadingLayout.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun init() {

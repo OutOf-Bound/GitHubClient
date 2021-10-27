@@ -5,6 +5,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
+import net.smartgekko.githubclient.SCREEN_STATE_IDLE
+import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.repo.GitHubUserRepository
 import net.smartgekko.githubclient.repo.GithubUser
 import net.smartgekko.githubclient.repo.IGithubUsersRepo
@@ -30,24 +32,37 @@ class UserPresenter(
 
         override fun getCount() = userRepos.size
 
-        override fun bindView(view: RepoItemView) {
-
+        override fun bindView(view: RepoItemView, lPos: Int) {
             val repo = userRepos[view.pos]
 
+            if (repo.selected) {
+                view.showDesc()
+            } else {
+                view.hideDesc()
+            }
+
             view.setName(repo.name)
-            repo.description?.let { view.setDesc(repo.description) }
+
+            if (repo.description != null) {
+                view.setDesc(repo.description)
+            } else {
+                view.setDesc("")
+            }
+
+            itemClickListener = {
+
+                userRepos[it.pos].selected = !userRepos[it.pos].selected
+                view.noteItemChanged(it.pos)
+            }
         }
     }
 
-    val repoListPresenter = UserPresenter.ReposListPresenter()
+    val repoListPresenter = ReposListPresenter()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
         loadRepos()
-        repoListPresenter.itemClickListener = { itemView ->
-            itemView.textToggle()
-        }
     }
 
     fun setCurrentUser(user: GithubUser) {
@@ -60,7 +75,7 @@ class UserPresenter(
     }
 
     private fun loadRepos() {
-        //  viewState.setScreenState(SCREEN_STATE_LOADING)
+        viewState.setScreenState(SCREEN_STATE_LOADING)
 
         if (currUser.reposUrl != null) {
             compositeDisposable.add(
@@ -73,7 +88,7 @@ class UserPresenter(
                             viewState.updateUserReposList()
                         },
                         onComplete = {
-                            // viewState.setScreenState(SCREEN_STATE_IDLE)
+                            viewState.setScreenState(SCREEN_STATE_IDLE)
                         },
                         onError = {
                             println("Error: ${it.message}")

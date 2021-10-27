@@ -3,7 +3,6 @@ package net.smartgekko.githubclient.presenters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import net.smartgekko.githubclient.R
 import net.smartgekko.githubclient.databinding.ItemUserBinding
 import net.smartgekko.githubclient.ui.UserItemView
 
@@ -25,7 +24,9 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
     override fun getItemCount() = presenter.getCount()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        presenter.bindView(holder.apply { pos = position })
+        presenter.bindView(holder.apply {
+            pos = position
+        }, holder.layoutPosition)
 
     inner class ViewHolder(private val vb: ItemUserBinding) : RecyclerView.ViewHolder(vb.root),
         UserItemView {
