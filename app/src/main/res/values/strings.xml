@@ -7,6 +7,8 @@
     <string name="get_users_error">Getting users list error</string>
     <string name="act_smile">Everyone get vaccinated!</string>
     <string name="analytics">Analytics</string>
+    <string name="user_repos">Repositories</string>
+    <string name="no_description">No description</string>
 
 
 </resources>

@@ -3,15 +3,20 @@ package net.smartgekko.githubclient.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import net.smartgekko.githubclient.ApiHolder
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.databinding.FragmentUserBinding
+import net.smartgekko.githubclient.presenters.RepoRVAdapter
 import net.smartgekko.githubclient.presenters.UserPresenter
 import net.smartgekko.githubclient.repo.GithubUser
+import net.smartgekko.githubclient.repo.RetrofitGithubUsersRepo
 
 class UserFragment : MvpAppCompatFragment(), BackButtonListener,
     UserView {
+    private lateinit var user: GithubUser
 
     companion object {
         fun newInstance(gitUser: GithubUser): UserFragment {
@@ -25,18 +30,20 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
 
     private val presenter: UserPresenter by moxyPresenter {
         UserPresenter(
+            RetrofitGithubUsersRepo(ApiHolder.api),
             App.instance.router,
             AndroidScreens()
         )
     }
+
+    private var adapter: RepoRVAdapter? = null
     private var _vb: FragmentUserBinding? = null
     private val vb get() = _vb!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) =
+        savedInstanceState: Bundle?) =
         FragmentUserBinding.inflate(inflater, container, false).also {
             _vb = it
         }.root
@@ -47,8 +54,16 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
     }
 
     override fun init() {
-        val user: GithubUser = arguments?.getSerializable("gitUser") as GithubUser
+        user = arguments?.getSerializable("gitUser") as GithubUser
         vb.userNameTV.text = user.login
+        vb.userReposRV.layoutManager = LinearLayoutManager(context)
+        adapter = RepoRVAdapter(presenter.repoListPresenter)
+        vb.userReposRV.adapter = adapter
+        presenter.setCurrentUser(user)
+    }
+
+    override fun updateUserReposList() {
+        adapter?.notifyDataSetChanged()
     }
 
     override fun backPressed() = presenter.backPressed()

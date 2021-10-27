@@ -33,8 +33,6 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
         override fun setLogin(text: String) = with(vb) {
             userListNameTV.text = text
         }
-
-
     }
 }
 

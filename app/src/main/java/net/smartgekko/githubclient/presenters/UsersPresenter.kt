@@ -2,7 +2,6 @@ package net.smartgekko.githubclient.presenters
 
 import com.github.terrakok.cicerone.Router
 import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
@@ -10,10 +9,8 @@ import net.smartgekko.githubclient.*
 import net.smartgekko.githubclient.repo.GithubUser
 import net.smartgekko.githubclient.repo.IGithubUsersRepo
 import net.smartgekko.githubclient.ui.IScreens
-import net.smartgekko.githubclient.ui.UserBehavoir
 import net.smartgekko.githubclient.ui.UserItemView
 import net.smartgekko.githubclient.ui.UsersView
-import kotlin.random.Random
 
 class UsersPresenter(
     val uiScheduler: Scheduler,
@@ -24,7 +21,6 @@ class UsersPresenter(
 
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
-
 
         override var itemClickListener: ((UserItemView) -> Unit)? = null
 

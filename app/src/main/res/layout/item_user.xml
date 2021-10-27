@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/github_200" />
 
     <TextView
-        android:id="@+id/userList_name_TV"
+        android:id="@+id/userListNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

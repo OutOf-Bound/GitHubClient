@@ -8,5 +8,7 @@
     <string name="get_users_error">Ошибка получения списка пользователей</string>
     <string name="act_smile">Всем вакцинироваться!</string>
     <string name="analytics">Аналитика</string>
+    <string name="user_repos">Репозитории</string>
+    <string name="no_description">Нет описания</string>
 
 </resources>
