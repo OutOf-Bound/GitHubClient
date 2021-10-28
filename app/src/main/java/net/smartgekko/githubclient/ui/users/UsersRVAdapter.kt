@@ -1,10 +1,11 @@
-package net.smartgekko.githubclient.presenters
+package net.smartgekko.githubclient.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import net.smartgekko.githubclient.databinding.ItemUserBinding
-import net.smartgekko.githubclient.ui.UserItemView
+import net.smartgekko.githubclient.presenters.IUserListPresenter
+import net.smartgekko.githubclient.ui.user.UserItemView
 
 
 class UsersRVAdapter(private val presenter: IUserListPresenter) :
@@ -32,7 +33,7 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
         UserItemView {
         override var pos = -1
         override fun setLogin(text: String) = with(vb) {
-            userListNameTV.text = text
+            userListNameTv.text = text
         }
     }
 }

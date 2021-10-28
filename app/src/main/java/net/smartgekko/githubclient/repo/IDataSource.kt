@@ -1,6 +1,8 @@
 package net.smartgekko.githubclient.repo
 
 import io.reactivex.Observable
+import net.smartgekko.githubclient.classes.GitHubUserRepository
+import net.smartgekko.githubclient.classes.GithubUser
 import retrofit2.http.GET
 import retrofit2.http.Url
 

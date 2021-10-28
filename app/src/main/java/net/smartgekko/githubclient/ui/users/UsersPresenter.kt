@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.presenters
+package net.smartgekko.githubclient.ui.users
 
 import com.github.terrakok.cicerone.Router
 import io.reactivex.Scheduler
@@ -7,11 +7,11 @@ import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
-import net.smartgekko.githubclient.repo.GithubUser
+import net.smartgekko.githubclient.presenters.IUserListPresenter
+import net.smartgekko.githubclient.classes.GithubUser
 import net.smartgekko.githubclient.repo.IGithubUsersRepo
 import net.smartgekko.githubclient.ui.IScreens
-import net.smartgekko.githubclient.ui.UserItemView
-import net.smartgekko.githubclient.ui.UsersView
+import net.smartgekko.githubclient.ui.user.UserItemView
 
 class UsersPresenter(
     private val uiScheduler: Scheduler,

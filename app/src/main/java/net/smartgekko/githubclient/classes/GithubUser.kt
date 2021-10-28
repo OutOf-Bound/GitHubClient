@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.repo
+package net.smartgekko.githubclient.classes
 
 import com.google.gson.annotations.Expose
 import java.io.Serializable

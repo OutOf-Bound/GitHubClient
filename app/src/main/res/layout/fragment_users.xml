@@ -1,7 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="90dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerLayout"
+        android:id="@+id/container_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#D6D6D6"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <RelativeLayout
-            android:id="@+id/relativeLayout"
+            android:id="@+id/relative_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#D6D6D6"
@@ -52,7 +52,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvUsers"
+                android:id="@+id/users_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false" />
@@ -62,7 +62,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loadingLayout"
+        android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#FFFFFF"
@@ -75,7 +75,7 @@
         tools:visibility="invisible">
 
         <ProgressBar
-            android:id="@+id/loadingPB"
+            android:id="@+id/loading_pb"
             style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -93,7 +93,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/loadingTV"
+            android:id="@+id/loading_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/in_process"

@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.ui
+package net.smartgekko.githubclient.ui.main
 
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -6,7 +6,8 @@ import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.databinding.ActivityMainBinding
-import net.smartgekko.githubclient.presenters.MainPresenter
+import net.smartgekko.githubclient.ui.AndroidScreens
+import net.smartgekko.githubclient.ui.BackButtonListener
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
@@ -14,12 +15,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
 
-    private var vb: ActivityMainBinding? = null
+    private lateinit var vb: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
+        setContentView(vb.root)
     }
 
     override fun onResumeFragments() {

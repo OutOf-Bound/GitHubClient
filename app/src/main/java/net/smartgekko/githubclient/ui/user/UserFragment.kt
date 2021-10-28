@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.ui
+package net.smartgekko.githubclient.ui.user
 
 import android.os.Bundle
 import android.transition.Fade
@@ -9,15 +9,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import net.smartgekko.githubclient.ApiHolder
+import net.smartgekko.githubclient.repo.ApiHolder
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.databinding.FragmentUserBinding
-import net.smartgekko.githubclient.presenters.RepoRVAdapter
-import net.smartgekko.githubclient.presenters.UserPresenter
-import net.smartgekko.githubclient.repo.GithubUser
+import net.smartgekko.githubclient.classes.GithubUser
 import net.smartgekko.githubclient.repo.RetrofitGithubUsersRepo
+import net.smartgekko.githubclient.ui.AndroidScreens
+import net.smartgekko.githubclient.ui.BackButtonListener
 
 class UserFragment : MvpAppCompatFragment(), BackButtonListener,
     UserView {
@@ -75,10 +75,10 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
 
     override fun init() {
         user = arguments?.getSerializable("gitUser") as GithubUser
-        vb.userNameTV.text = user.login
-        vb.userReposRV.layoutManager = LinearLayoutManager(context)
+        vb.userNameTv.text = user.login
+        vb.userReposRv.layoutManager = LinearLayoutManager(context)
         adapter = RepoRVAdapter(presenter.repoListPresenter)
-        vb.userReposRV.adapter = adapter
+        vb.userReposRv.adapter = adapter
         presenter.setCurrentUser(user)
     }
 

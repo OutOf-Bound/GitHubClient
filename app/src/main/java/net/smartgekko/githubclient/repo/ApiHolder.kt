@@ -1,8 +1,8 @@
-package net.smartgekko.githubclient
+package net.smartgekko.githubclient.repo
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import net.smartgekko.githubclient.repo.IDataSource
+import net.smartgekko.githubclient.GITHUB_API_BASE_URL
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.presenters
+package net.smartgekko.githubclient.ui.user
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.R
 import net.smartgekko.githubclient.databinding.ItemUserRepoBinding
-import net.smartgekko.githubclient.ui.RepoItemView
+import net.smartgekko.githubclient.presenters.IUserReposListPresenter
 
 class RepoRVAdapter(private val presenter: IUserReposListPresenter) :
     RecyclerView.Adapter<RepoRVAdapter.ViewHolder>() {
@@ -35,23 +35,23 @@ class RepoRVAdapter(private val presenter: IUserReposListPresenter) :
         override var pos = -1
 
         override fun setName(text: String) {
-            vb.repoNameTV.text = text
+            vb.repoNameTv.text = text
         }
 
         override fun setDesc(text: String) {
             if (text != "") {
-                vb.repoDescTV.text = text
+                vb.repoDescTv.text = text
             } else {
-                vb.repoDescTV.text = App.instance.getString(R.string.no_description)
+                vb.repoDescTv.text = App.instance.getString(R.string.no_description)
             }
         }
 
         override fun showDesc() {
-            vb.repoDescTV.visibility = View.VISIBLE
+            vb.repoDescTv.visibility = View.VISIBLE
         }
 
         override fun hideDesc() {
-            vb.repoDescTV.visibility = View.GONE
+            vb.repoDescTv.visibility = View.GONE
         }
 
         override fun noteItemChanged(curPos: Int) {

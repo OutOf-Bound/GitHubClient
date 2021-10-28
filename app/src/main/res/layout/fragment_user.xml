@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E2D6D6D6"
-    tools:context=".ui.UserFragment">
+    tools:context=".ui.user.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userReposRV"
+        android:id="@+id/user_repos_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="8dp"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/userNameTV"
+            android:id="@+id/user_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="User Name"
@@ -55,19 +55,19 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/userAvatarIV"
+            android:id="@+id/user_avatar_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:elevation="5dp"
+            android:elevation="15dp"
             app:srcCompat="@drawable/github_200_trn" />
 
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loadingLayout"
+        android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -77,11 +77,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/userReposRV"
+        app:layout_constraintTop_toTopOf="@+id/user_repos_rv"
         tools:visibility="invisible">
 
         <ProgressBar
-            android:id="@+id/loadingPB"
+            android:id="@+id/loading_pb"
             style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -99,7 +99,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/loadingTV"
+            android:id="@+id/loading_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/in_process"

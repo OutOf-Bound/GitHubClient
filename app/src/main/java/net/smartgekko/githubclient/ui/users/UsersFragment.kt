@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.ui
+package net.smartgekko.githubclient.ui.users
 
 import android.os.Bundle
 import android.transition.Fade
@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import net.smartgekko.githubclient.ApiHolder
+import net.smartgekko.githubclient.repo.ApiHolder
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.databinding.FragmentUsersBinding
-import net.smartgekko.githubclient.presenters.UsersPresenter
-import net.smartgekko.githubclient.presenters.UsersRVAdapter
 import net.smartgekko.githubclient.repo.RetrofitGithubUsersRepo
+import net.smartgekko.githubclient.ui.AndroidScreens
+import net.smartgekko.githubclient.ui.BackButtonListener
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     companion object {
@@ -52,9 +52,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun init() {
-        vb.rvUsers.layoutManager = LinearLayoutManager(context)
+        vb.usersRv.layoutManager = LinearLayoutManager(context)
         adapter = UsersRVAdapter(presenter.usersListPresenter)
-        vb.rvUsers.adapter = adapter
+        vb.usersRv.adapter = adapter
     }
 
     override fun updateList() {

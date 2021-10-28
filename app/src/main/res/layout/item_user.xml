@@ -12,13 +12,13 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/userList_item_IV"
+        android:id="@+id/user_list_item_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:srcCompat="@drawable/github_200" />
 
     <TextView
-        android:id="@+id/userListNameTV"
+        android:id="@+id/user_list_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
