@@ -10,7 +10,7 @@ import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.presenters.IUserReposListPresenter
 import net.smartgekko.githubclient.classes.GitHubUserRepository
 import net.smartgekko.githubclient.classes.GithubUser
-import net.smartgekko.githubclient.repo.IGithubUsersRepo
+import net.smartgekko.githubclient.repo.api.IGithubUsersRepo
 import net.smartgekko.githubclient.ui.IScreens
 
 class UserPresenter(
@@ -78,15 +78,13 @@ class UserPresenter(
 
         if (currUser.reposUrl != null) {
             compositeDisposable.add(
-                userRepo.getUserRepository(currUser.reposUrl!!)
+                userRepo.getUserRepository(currUser.id,currUser.reposUrl!!)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeBy(
-                        onNext = {
+                        onSuccess = {
                             repoListPresenter.userRepos.clear()
                             repoListPresenter.userRepos.addAll(it)
                             viewState.updateUserReposList()
-                        },
-                        onComplete = {
                             viewState.setScreenState(SCREEN_STATE_IDLE)
                         },
                         onError = {

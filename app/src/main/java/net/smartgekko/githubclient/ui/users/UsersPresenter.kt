@@ -9,7 +9,7 @@ import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.presenters.IUserListPresenter
 import net.smartgekko.githubclient.classes.GithubUser
-import net.smartgekko.githubclient.repo.IGithubUsersRepo
+import net.smartgekko.githubclient.repo.api.IGithubUsersRepo
 import net.smartgekko.githubclient.ui.IScreens
 import net.smartgekko.githubclient.ui.user.UserItemView
 
@@ -53,12 +53,10 @@ class UsersPresenter(
             usersRepo.getUsers()
                 .observeOn(uiScheduler)
                 .subscribeBy(
-                    onNext = {
+                    onSuccess = {
                         usersListPresenter.users.clear()
                         usersListPresenter.users.addAll(it)
                         viewState.updateList()
-                    },
-                    onComplete = {
                         viewState.setScreenState(SCREEN_STATE_IDLE)
                     },
                     onError = {

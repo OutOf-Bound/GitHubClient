@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.repo
+package net.smartgekko.githubclient.repo.api
 
 import io.reactivex.Observable
 import net.smartgekko.githubclient.classes.GitHubUserRepository
