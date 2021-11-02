@@ -9,13 +9,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import net.smartgekko.githubclient.repo.api.ApiHolder
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.databinding.FragmentUserBinding
 import net.smartgekko.githubclient.classes.GithubUser
-import net.smartgekko.githubclient.repo.api.RetrofitGithubUsersRepo
 import net.smartgekko.githubclient.ui.AndroidScreens
 import net.smartgekko.githubclient.ui.BackButtonListener
 
@@ -35,7 +33,6 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
 
     private val presenter: UserPresenter by moxyPresenter {
         UserPresenter(
-            RetrofitGithubUsersRepo(ApiHolder.apiRetrofit, App.networkStatus, App.db),
             App.instance.router,
             AndroidScreens()
         )

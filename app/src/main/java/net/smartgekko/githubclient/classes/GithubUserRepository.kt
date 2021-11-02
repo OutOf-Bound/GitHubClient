@@ -17,7 +17,7 @@ import java.io.Serializable
     )],
     tableName = "repos"
 )
-class GitHubUserRepository(
+class GithubUserRepository(
     @PrimaryKey  @ColumnInfo(name = "id") @NonNull
     @Expose val id: String,
 

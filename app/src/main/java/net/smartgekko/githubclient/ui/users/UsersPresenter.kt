@@ -9,16 +9,15 @@ import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.presenters.IUserListPresenter
 import net.smartgekko.githubclient.classes.GithubUser
-import net.smartgekko.githubclient.repo.api.IGithubUsersRepo
+import net.smartgekko.githubclient.ui.GithubPresenter
 import net.smartgekko.githubclient.ui.IScreens
 import net.smartgekko.githubclient.ui.user.UserItemView
 
 class UsersPresenter(
     private val uiScheduler: Scheduler,
-    private val usersRepo: IGithubUsersRepo,
     private val router: Router,
     private val screens: IScreens
-) : MvpPresenter<UsersView>() {
+) : MvpPresenter<UsersView>(), GithubPresenter {
 
 
     class UsersListPresenter : IUserListPresenter {
@@ -51,7 +50,7 @@ class UsersPresenter(
         viewState.setScreenState(SCREEN_STATE_LOADING)
 
         compositeDisposable.add(
-            usersRepo.getUsers()
+            mainRepo.getUsers()
                 .observeOn(uiScheduler)
                 .subscribeBy(
                     onSuccess = {

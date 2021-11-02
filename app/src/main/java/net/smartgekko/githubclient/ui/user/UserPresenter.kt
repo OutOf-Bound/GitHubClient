@@ -8,24 +8,22 @@ import moxy.MvpPresenter
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.presenters.IUserReposListPresenter
-import net.smartgekko.githubclient.classes.GitHubUserRepository
+import net.smartgekko.githubclient.classes.GithubUserRepository
 import net.smartgekko.githubclient.classes.GithubUser
-import net.smartgekko.githubclient.repo.api.IGithubUsersRepo
+import net.smartgekko.githubclient.ui.GithubPresenter
 import net.smartgekko.githubclient.ui.IScreens
 
 class UserPresenter(
-    private val userRepo: IGithubUsersRepo,
     private val router: Router,
     private val screens: IScreens
-) :
-    MvpPresenter<UserView>() {
+) :MvpPresenter<UserView>(), GithubPresenter {
 
     private lateinit var currUser: GithubUser
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 
     class ReposListPresenter : IUserReposListPresenter {
-        val userRepos = mutableListOf<GitHubUserRepository>()
+        val userRepos = mutableListOf<GithubUserRepository>()
 
         override var itemClickListener: ((RepoItemView) -> Unit)? = null
 
@@ -78,7 +76,7 @@ class UserPresenter(
 
         if (currUser.reposUrl != null) {
             compositeDisposable.add(
-                userRepo.getUserRepositoriesList(currUser.id,currUser.reposUrl!!)
+                mainRepo.getUserRepositoriesList(currUser.id,currUser.reposUrl!!)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeBy(
                         onSuccess = {
