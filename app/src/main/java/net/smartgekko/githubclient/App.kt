@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.room.Room
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
-import net.smartgekko.githubclient.repo.database.CacheDatabase
+import net.smartgekko.githubclient.repo.cache.database.CacheDatabase
 import net.smartgekko.githubclient.repo.network.AndroidNetworkStatus
 import net.smartgekko.githubclient.repo.network.INetworkStatus
 
@@ -29,7 +29,7 @@ class App : Application() {
     fun getNetworkStatus() = networkStatus
 
     fun showMessage(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate() {

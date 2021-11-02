@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.repo.database
+package net.smartgekko.githubclient.repo.cache.database
 
 import androidx.room.*
 import net.smartgekko.githubclient.classes.GitHubUserRepository
@@ -32,9 +32,9 @@ interface RepositoryDao {
     @Delete
     fun delete(users: List<GitHubUserRepository>)
 
-    @Query("SELECT * FROM GitHubUserRepository")
+    @Query("SELECT * FROM repos")
     fun getAll(): List<GitHubUserRepository>
 
-    @Query("SELECT * FROM GitHubUserRepository WHERE userId = :userId")
+    @Query("SELECT * FROM repos WHERE userId = :userId")
     fun findForUser(userId: String): List<GitHubUserRepository>
 }

@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.repo.database
+package net.smartgekko.githubclient.repo.cache.database
 
 import androidx.room.*
 import net.smartgekko.githubclient.classes.GithubUser

@@ -1,5 +1,6 @@
 package net.smartgekko.githubclient.classes
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -13,11 +14,15 @@ import java.io.Serializable
         parentColumns = ["id"],
         childColumns = ["userId"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    tableName = "repos"
 )
 class GitHubUserRepository(
-    @PrimaryKey @ColumnInfo(name = "userId")
-    @Expose val userId: String,
+    @PrimaryKey  @ColumnInfo(name = "id") @NonNull
+    @Expose val id: String,
+
+    @ColumnInfo(name = "userId")
+    @Expose var userId: String ="",
 
     @ColumnInfo(name = "name")
     @Expose val name: String,
@@ -25,5 +30,6 @@ class GitHubUserRepository(
     @ColumnInfo(name = "description")
     @Expose val description: String? = null,
 
-    @Expose var selected: Boolean = true
+    @ColumnInfo(name = "selected", defaultValue = "false")
+    @Expose var selected: Boolean = false
 ) : Serializable

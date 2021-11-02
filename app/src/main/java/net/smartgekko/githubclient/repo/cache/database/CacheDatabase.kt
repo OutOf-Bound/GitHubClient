@@ -1,4 +1,4 @@
-package net.smartgekko.githubclient.repo.database
+package net.smartgekko.githubclient.repo.cache.database
 
 import android.content.Context
 import androidx.room.Room
@@ -19,7 +19,8 @@ abstract class CacheDatabase : RoomDatabase() {
 
         fun create(context: Context?) {
             if (instance == null) {
-                instance = Room.databaseBuilder(context!!,CacheDatabase::class.java, DB_NAME)
+                instance = Room.databaseBuilder(context!!, CacheDatabase::class.java, DB_NAME)
+                    .allowMainThreadQueries()
                     .build()
             }
         }

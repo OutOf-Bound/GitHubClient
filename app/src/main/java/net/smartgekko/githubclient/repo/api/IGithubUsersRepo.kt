@@ -7,5 +7,5 @@ import net.smartgekko.githubclient.classes.GithubUser
 
 interface IGithubUsersRepo {
     fun getUsers(): Single<List<GithubUser>>
-    fun getUserRepository(userId: String, url: String): Single<List<GitHubUserRepository>>
+    fun getUserRepositoriesList(userId: String, url: String): Single<List<GitHubUserRepository>>
 }

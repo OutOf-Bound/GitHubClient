@@ -78,7 +78,7 @@ class UserPresenter(
 
         if (currUser.reposUrl != null) {
             compositeDisposable.add(
-                userRepo.getUserRepository(currUser.id,currUser.reposUrl!!)
+                userRepo.getUserRepositoriesList(currUser.id,currUser.reposUrl!!)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeBy(
                         onSuccess = {

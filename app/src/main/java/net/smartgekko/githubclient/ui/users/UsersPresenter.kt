@@ -20,6 +20,7 @@ class UsersPresenter(
     private val screens: IScreens
 ) : MvpPresenter<UsersView>() {
 
+
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
 
