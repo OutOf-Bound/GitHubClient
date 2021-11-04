@@ -9,14 +9,14 @@ import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.presenters.IUserListPresenter
 import net.smartgekko.githubclient.classes.GithubUser
+import net.smartgekko.githubclient.ui.AndroidScreens
 import net.smartgekko.githubclient.ui.GithubPresenter
-import net.smartgekko.githubclient.ui.IScreens
 import net.smartgekko.githubclient.ui.user.UserItemView
+import org.koin.java.KoinJavaComponent
+import org.koin.java.KoinJavaComponent.inject
 
 class UsersPresenter(
-    private val uiScheduler: Scheduler,
-    private val router: Router,
-    private val screens: IScreens
+
 ) : MvpPresenter<UsersView>(), GithubPresenter {
 
 
@@ -32,7 +32,9 @@ class UsersPresenter(
             view.setLogin(user.login)
         }
     }
-
+    private val uiScheduler: Scheduler by inject(Scheduler::class.java)
+    private val screens: AndroidScreens by inject(AndroidScreens::class.java)
+    val router:Router by inject(Router::class.java)
     val usersListPresenter = UsersListPresenter()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 

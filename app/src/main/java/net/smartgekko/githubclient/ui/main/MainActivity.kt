@@ -1,19 +1,22 @@
 package net.smartgekko.githubclient.ui.main
 
 import android.os.Bundle
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import net.smartgekko.githubclient.App
+import net.smartgekko.githubclient.R
 import net.smartgekko.githubclient.databinding.ActivityMainBinding
-import net.smartgekko.githubclient.ui.AndroidScreens
 import net.smartgekko.githubclient.ui.BackButtonListener
+import org.koin.android.ext.android.inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private val navigator = AppNavigator(this, net.smartgekko.githubclient.R.id.rootContainer)
+    private val navigatorHolder:NavigatorHolder by inject()
+    private lateinit var navigator:AppNavigator
 
-    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
+    private val presenter by moxyPresenter { MainPresenter() }
+
 
     private lateinit var vb: ActivityMainBinding
 
@@ -21,16 +24,17 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb.root)
+        navigator = AppNavigator(this, R.id.rootContainer)
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        App.instance.navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        App.instance.navigatorHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
     }
 
     override fun onBackPressed() {

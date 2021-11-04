@@ -2,29 +2,33 @@ package net.smartgekko.githubclient
 
 import android.app.Application
 import android.widget.Toast
-import androidx.room.Room
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
-import net.smartgekko.githubclient.repo.cache.database.CacheDatabase
+import net.smartgekko.githubclient.classes.ciceroneModule
+import net.smartgekko.githubclient.classes.mainModule
+import net.smartgekko.githubclient.classes.roomModule
+import net.smartgekko.githubclient.classes.usersModule
 import net.smartgekko.githubclient.repo.network.AndroidNetworkStatus
 import net.smartgekko.githubclient.repo.network.INetworkStatus
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext
 
 class App : Application() {
 
     companion object {
         lateinit var instance: App
-        lateinit var db: CacheDatabase
         lateinit var networkStatus: INetworkStatus
 
     }
 
     //Временно до даггера положим это тут
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
+    //Пока что это Koin
+    private val cicerone: Cicerone<Router> by inject()
 
-    val navigatorHolder get() = cicerone.getNavigatorHolder()
-    val router get() = cicerone.router
+   // val navigatorHolder get() = cicerone.getNavigatorHolder()
+    //val router get() = cicerone.router
 
     fun getNetworkStatus() = networkStatus
 
@@ -35,10 +39,19 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        db = Room.databaseBuilder(applicationContext, CacheDatabase::class.java, "database")
-            .allowMainThreadQueries()
-            .build()
         networkStatus = AndroidNetworkStatus(applicationContext)
+
+        GlobalContext.startKoin {
+            androidLogger()
+            //inject Android context
+            androidContext(this@App)
+            // use modules
+            modules(ciceroneModule)
+            modules(roomModule)
+            modules(mainModule)
+            modules(usersModule)
+
+        }
     }
 }
 

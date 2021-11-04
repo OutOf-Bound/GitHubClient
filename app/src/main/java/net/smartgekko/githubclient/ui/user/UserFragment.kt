@@ -33,8 +33,6 @@ class UserFragment : MvpAppCompatFragment(), BackButtonListener,
 
     private val presenter: UserPresenter by moxyPresenter {
         UserPresenter(
-            App.instance.router,
-            AndroidScreens()
         )
     }
 

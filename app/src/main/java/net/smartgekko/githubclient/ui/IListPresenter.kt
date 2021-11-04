@@ -1,6 +1,6 @@
 package net.smartgekko.githubclient.presenters
 
-import net.smartgekko.githubclient.ui.IItemView
+import net.smartgekko.githubclient.ui.user.IItemView
 import net.smartgekko.githubclient.ui.user.RepoItemView
 import net.smartgekko.githubclient.ui.user.UserItemView
 

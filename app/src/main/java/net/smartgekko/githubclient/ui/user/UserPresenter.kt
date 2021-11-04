@@ -10,14 +10,15 @@ import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.presenters.IUserReposListPresenter
 import net.smartgekko.githubclient.classes.GithubUserRepository
 import net.smartgekko.githubclient.classes.GithubUser
+import net.smartgekko.githubclient.ui.AndroidScreens
 import net.smartgekko.githubclient.ui.GithubPresenter
 import net.smartgekko.githubclient.ui.IScreens
+import org.koin.java.KoinJavaComponent
+import org.koin.java.KoinJavaComponent.inject
 
-class UserPresenter(
-    private val router: Router,
-    private val screens: IScreens
-) :MvpPresenter<UserView>(), GithubPresenter {
-
+class UserPresenter() :MvpPresenter<UserView>(), GithubPresenter {
+    private val router:Router by inject(Router::class.java)
+    private val screens: AndroidScreens by KoinJavaComponent.inject(AndroidScreens::class.java)
     private lateinit var currUser: GithubUser
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 

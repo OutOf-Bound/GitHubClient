@@ -2,11 +2,13 @@ package net.smartgekko.githubclient.ui.main
 
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
-import net.smartgekko.githubclient.ui.IScreens
-import net.smartgekko.githubclient.ui.main.MainView
+import net.smartgekko.githubclient.ui.AndroidScreens
+import org.koin.java.KoinJavaComponent
 
-class MainPresenter(private val router: Router, private val screens: IScreens) :
+class MainPresenter() :
     MvpPresenter<MainView>() {
+    private val router:Router by KoinJavaComponent.inject(Router::class.java)
+    private val screens: AndroidScreens by KoinJavaComponent.inject(AndroidScreens::class.java)
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
