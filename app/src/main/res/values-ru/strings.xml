@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GitHub консоль</string>
+    <string name="user_fragment_title">Профиль пользователя</string>
+    <string name="users_list">Пользователи</string>
+    <string name="in_process">Загрузка…</string>
+    <string name="users_loading_complete">Список пользователей загружен</string>
+    <string name="get_new_login_error">Ошибка получения данных</string>
+    <string name="get_users_error">Ошибка получения списка пользователей</string>
+    <string name="act_smile">Всем вакцинироваться!</string>
+    <string name="analytics">Аналитика</string>
+    <string name="user_repos">Репозитории пользователя</string>
+    <string name="no_description">Нет описания</string>
+
+</resources>
