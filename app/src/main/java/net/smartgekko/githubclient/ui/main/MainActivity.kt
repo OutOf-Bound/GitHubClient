@@ -12,22 +12,23 @@ import net.smartgekko.githubclient.ui.BackButtonListener
 import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
-    @Inject
-    lateinit var navigatorHolder:NavigatorHolder
 
-    private lateinit var navigator:AppNavigator
+    private lateinit var navigator: AppNavigator
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
 
     private val presenter by moxyPresenter { MainPresenter() }
-
 
     private lateinit var vb: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb.root)
+        app.appComponent.inject(this)
 
-      //  app.appComponent.inject(this)
 
         navigator = AppNavigator(this, R.id.rootContainer)
     }

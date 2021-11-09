@@ -9,18 +9,16 @@ import javax.inject.Inject
 
 class MainPresenter() :
     MvpPresenter<MainView>() {
-   // @Inject
-  //  lateinit var router: Router
-   val router: Router = App.instance.router
+    @Inject
+    lateinit var router: Router
 
-   // @Inject
-   // lateinit var screens: AndroidScreens
-   val screens: AndroidScreens = AndroidScreens()
+    @Inject
+    lateinit var screens: AndroidScreens
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-     //   App.instance.appComponent.inject(this)
+        App.instance.appComponent.inject(this)
 
         router.replaceScreen(screens.users())
     }

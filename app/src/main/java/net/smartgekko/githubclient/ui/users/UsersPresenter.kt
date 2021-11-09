@@ -2,15 +2,14 @@ package net.smartgekko.githubclient.ui.users
 
 import com.github.terrakok.cicerone.Router
 import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
-import net.smartgekko.githubclient.presenters.IUserListPresenter
 import net.smartgekko.githubclient.classes.GithubUser
+import net.smartgekko.githubclient.presenters.IUserListPresenter
 import net.smartgekko.githubclient.ui.AndroidScreens
 import net.smartgekko.githubclient.ui.GithubPresenter
 import net.smartgekko.githubclient.ui.user.UserItemView
@@ -33,15 +32,15 @@ class UsersPresenter(
             view.setLogin(user.login)
         }
     }
-    //@Inject
-    //lateinit var uiScheduler: Scheduler
-    val uiScheduler: Scheduler = AndroidSchedulers.mainThread()
-   // @Inject
-   // lateinit var screens: AndroidScreens
-   val screens: AndroidScreens = AndroidScreens()
-   // @Inject
-   // lateinit var router:Router
-   val router:Router = App.instance.router
+
+    @Inject
+    lateinit var uiScheduler: Scheduler
+
+    @Inject
+    lateinit var screens: AndroidScreens
+
+    @Inject
+    lateinit var router: Router
 
     val usersListPresenter = UsersListPresenter()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -49,7 +48,7 @@ class UsersPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-      //  App.instance.appComponent.inject(this)
+        App.instance.appComponent.inject(this)
         viewState.init()
         loadData()
         usersListPresenter.itemClickListener = { itemView ->
@@ -78,7 +77,7 @@ class UsersPresenter(
     }
 
     fun backPressed(): Boolean {
-       router.exit()
+        router.exit()
         return true
     }
 }

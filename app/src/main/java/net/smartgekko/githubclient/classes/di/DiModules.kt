@@ -10,12 +10,13 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
-import moxy.MvpAppCompatActivity
 import net.smartgekko.githubclient.repo.cache.database.CacheDatabase
 import net.smartgekko.githubclient.ui.AndroidScreens
+import net.smartgekko.githubclient.ui.main.MainActivity
 import net.smartgekko.githubclient.ui.main.MainPresenter
 import net.smartgekko.githubclient.ui.user.UserPresenter
 import net.smartgekko.githubclient.ui.users.UsersPresenter
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -42,15 +43,18 @@ class CiceroneModule {
 
     @Provides
     @Singleton
+    @Named("cicerone")
     fun provideCicerone(): Cicerone<Router> = Cicerone.create()
 
     @Provides
     @Singleton
-    fun provideCiceroneRouter(): Router = provideCicerone().router
+    fun provideCiceroneRouter(@Named("cicerone") cicerone: Cicerone<Router>): Router =
+        cicerone.router
 
     @Provides
     @Singleton
-    fun provideCiceroneNavigatorHolder(): NavigatorHolder = provideCicerone().getNavigatorHolder()
+    fun provideCiceroneNavigatorHolder(@Named("cicerone") cicerone: Cicerone<Router>): NavigatorHolder =
+        cicerone.getNavigatorHolder()
 }
 
 @Module
@@ -68,10 +72,10 @@ class UsersModule {
 @Singleton
 @Component(modules = [CiceroneModule::class, MainModule::class, UsersModule::class, RoomModule::class])
 interface AppComponent {
-    fun inject(activity: MvpAppCompatActivity)
-   // fun inject(mainPresenter: MainPresenter)
-   // fun inject(userPresenter: UserPresenter)
-   // fun inject(usersPresenter: UsersPresenter)
-    fun getDb():CacheDatabase
+    fun inject(activity: MainActivity)
+    fun inject(mainPresenter: MainPresenter)
+    fun inject(userPresenter: UserPresenter)
+    fun inject(usersPresenter: UsersPresenter)
+    fun getDb(): CacheDatabase
 }
 

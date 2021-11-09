@@ -8,21 +8,19 @@ import moxy.MvpPresenter
 import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
-import net.smartgekko.githubclient.presenters.IUserReposListPresenter
-import net.smartgekko.githubclient.classes.GithubUserRepository
 import net.smartgekko.githubclient.classes.GithubUser
+import net.smartgekko.githubclient.classes.GithubUserRepository
+import net.smartgekko.githubclient.presenters.IUserReposListPresenter
 import net.smartgekko.githubclient.ui.AndroidScreens
 import net.smartgekko.githubclient.ui.GithubPresenter
 import javax.inject.Inject
 
-class UserPresenter() :MvpPresenter<UserView>(), GithubPresenter {
-   // @Inject
-   // lateinit var router:Router
-   val router:Router = App.instance.router
+class UserPresenter() : MvpPresenter<UserView>(), GithubPresenter {
+    @Inject
+    lateinit var router: Router
 
-   // @Inject
-   // lateinit var screens: AndroidScreens
-   val screens: AndroidScreens = AndroidScreens()
+    @Inject
+    lateinit var screens: AndroidScreens
 
     private lateinit var currUser: GithubUser
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -65,7 +63,7 @@ class UserPresenter() :MvpPresenter<UserView>(), GithubPresenter {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
-      //  App.instance.appComponent.inject(this)
+        App.instance.appComponent.inject(this)
         loadRepos()
     }
 
@@ -83,7 +81,7 @@ class UserPresenter() :MvpPresenter<UserView>(), GithubPresenter {
 
         if (currUser.reposUrl != null) {
             compositeDisposable.add(
-                mainRepo.getUserRepositoriesList(currUser.id,currUser.reposUrl!!)
+                mainRepo.getUserRepositoriesList(currUser.id, currUser.reposUrl!!)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeBy(
                         onSuccess = {
