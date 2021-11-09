@@ -5,6 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import moxy.MvpPresenter
+import net.smartgekko.githubclient.App
 import net.smartgekko.githubclient.SCREEN_STATE_IDLE
 import net.smartgekko.githubclient.SCREEN_STATE_LOADING
 import net.smartgekko.githubclient.presenters.IUserReposListPresenter
@@ -12,13 +13,17 @@ import net.smartgekko.githubclient.classes.GithubUserRepository
 import net.smartgekko.githubclient.classes.GithubUser
 import net.smartgekko.githubclient.ui.AndroidScreens
 import net.smartgekko.githubclient.ui.GithubPresenter
-import net.smartgekko.githubclient.ui.IScreens
-import org.koin.java.KoinJavaComponent
-import org.koin.java.KoinJavaComponent.inject
+import javax.inject.Inject
 
 class UserPresenter() :MvpPresenter<UserView>(), GithubPresenter {
-    private val router:Router by inject(Router::class.java)
-    private val screens: AndroidScreens by KoinJavaComponent.inject(AndroidScreens::class.java)
+   // @Inject
+   // lateinit var router:Router
+   val router:Router = App.instance.router
+
+   // @Inject
+   // lateinit var screens: AndroidScreens
+   val screens: AndroidScreens = AndroidScreens()
+
     private lateinit var currUser: GithubUser
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -60,6 +65,7 @@ class UserPresenter() :MvpPresenter<UserView>(), GithubPresenter {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
+      //  App.instance.appComponent.inject(this)
         loadRepos()
     }
 

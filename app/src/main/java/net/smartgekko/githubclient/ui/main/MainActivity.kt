@@ -6,13 +6,15 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import net.smartgekko.githubclient.R
+import net.smartgekko.githubclient.app
 import net.smartgekko.githubclient.databinding.ActivityMainBinding
 import net.smartgekko.githubclient.ui.BackButtonListener
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
+    @Inject
+    lateinit var navigatorHolder:NavigatorHolder
 
-    private val navigatorHolder:NavigatorHolder by inject()
     private lateinit var navigator:AppNavigator
 
     private val presenter by moxyPresenter { MainPresenter() }
@@ -24,6 +26,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb.root)
+
+      //  app.appComponent.inject(this)
+
         navigator = AppNavigator(this, R.id.rootContainer)
     }
 
